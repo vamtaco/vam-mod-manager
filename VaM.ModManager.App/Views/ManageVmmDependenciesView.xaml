@@ -1,0 +1,49 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="VaM.ModManager.App.Views.ManageVmmDependenciesView">
+
+  <DockPanel>
+    <TextBlock DockPanel.Dock="Top"
+               Grid.Row="0" Grid.Column="0"
+               Text="Manage Mod Dependencies"
+               FontSize="24"
+               Height="40" />
+    
+    <Grid DockPanel.Dock="Top" ColumnDefinitions="625,625" RowDefinitions="Auto,Auto,Auto" Margin="10">
+      <TextBlock Grid.Row="0" Grid.Column="0" Text="Installed Mods" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Text="Dependencies" />
+
+      <ListBox Name="lstInstalledMods" Grid.Row="1" Grid.Column="0" Height="400" Margin="0,0,5,5" Items="{Binding InstalledMods}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <ListBoxItem Content="{Binding DisplayName}" />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <ListBox Name="lstDependencies" Grid.Row="1" Grid.Column="1" Height="400" Margin="0,0,5,5" Items="{Binding Dependencies}">
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <ListBoxItem Content="{Binding DisplayName}" />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
+        <Button Content="Add" Width="75" VerticalAlignment="Bottom" IsVisible="{Binding #lstInstalledMods.SelectedItems.Count}" Command="{Binding OnAddDependency}" CommandParameter="{Binding #lstInstalledMods.SelectedItem}" />
+      </StackPanel>
+      
+      <Button Grid.Row="2" Grid.Column="1" Content="Remove" Width="75" VerticalAlignment="Bottom" IsVisible="{Binding #lstDependencies.SelectedItems.Count}" Command="{Binding OnRemoveDependency}" CommandParameter="{Binding #lstDependencies.SelectedItem}" />
+
+    </Grid>
+
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+      <Button Content="Back" Width="50" VerticalAlignment="Bottom" Margin="0,0,5,0" Command="{Binding $parent[Window].DataContext.LoadMainWindow}" />
+      <!--<Button Content="Save" Width="50" VerticalAlignment="Bottom" Command="{Binding OnSave}" />-->
+    </StackPanel>
+  </DockPanel>
+  
+</UserControl>

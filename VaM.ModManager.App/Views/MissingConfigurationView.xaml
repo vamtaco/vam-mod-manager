@@ -1,0 +1,16 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="VaM.ModManager.App.Views.DefaultView">
+
+  <StackPanel>
+    <TextBlock Text="Welcome to VaM Mod Manager!" 
+               FontSize="24" Height="40" />
+    
+    <TextBlock Text="Please setup your config file to continue." />
+    <Button Content="Config..." Command="{Binding $parent[Window].DataContext.OnConfig}" />
+  </StackPanel>
+  
+</UserControl>

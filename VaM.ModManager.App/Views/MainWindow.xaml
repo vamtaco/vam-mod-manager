@@ -1,0 +1,34 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:VaM.ModManager.App.ViewModels;assembly=VaM.ModManager.App"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+        x:Class="VaM.ModManager.App.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="VaM Mod Manager"
+        Width="1280"
+        Height="720">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+  <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="_File">
+        <MenuItem Header="_New mod..." Command="{Binding OnNewMod}" />
+        <MenuItem Header="_Config..." Command="{Binding OnConfig}" />
+        <Separator/>
+        <MenuItem Header="_Exit" Command="{Binding OnExit}" />
+      </MenuItem>
+    </Menu>
+    
+    <ContentControl Name="MainContent" 
+                    DockPanel.Dock="Top" 
+                    Content="{Binding Content}"
+                    Margin="10"/>
+    
+  </DockPanel>
+
+</Window>

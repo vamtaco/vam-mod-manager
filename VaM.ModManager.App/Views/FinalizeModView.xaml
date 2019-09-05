@@ -1,0 +1,59 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VaM.ModManager.App.Views.FinalizeModView">
+  
+  <DockPanel>
+    <TextBlock DockPanel.Dock="Top"
+               Text="Finalize Mod"
+               FontSize="24"
+               Height="40" />
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="Author: " Width="100" FontWeight="Bold" />
+      <TextBox Width="400" VerticalAlignment="Top" Text="{Binding Vmm.Author}"  />
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="Mod Name: " Width="100" FontWeight="Bold" />
+      <TextBox Width="400" VerticalAlignment="Top" Text="{Binding Vmm.ModName}"  />
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="Mod Type: " Width="100" FontWeight="Bold" />
+      <ComboBox Name="cboModType" Width="400" SelectedItem="{Binding Vmm.ModType}">
+      </ComboBox>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="Mod Version: " Width="100" FontWeight="Bold" />
+      <TextBox Width="400" VerticalAlignment="Top" Text="{Binding Vmm.ModVersion}"  />
+    </StackPanel>
+
+    <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="0,5,0,0">
+      <TextBlock Text="Exclude Mod Folders:" FontWeight="Bold" Margin="0,0,0,5" />
+      <ItemsControl Items="{Binding ExcludedModFolders}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <CheckBox Name="chkExcluded" IsChecked="{Binding IsExcludedFromFinalization}">
+              <TextBlock Text="{Binding DisplayName}" />
+            </CheckBox>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <StackPanel Orientation="Vertical" Spacing="5" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+      </ItemsControl>
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+      <Button Content="Back" Width="50" VerticalAlignment="Bottom" Margin="0,0,5,0" Command="{Binding $parent[Window].DataContext.LoadMainWindow}" />
+      <Button Content="Finalize" Width="50" VerticalAlignment="Bottom" Command="{Binding OnFinalize}" />
+    </StackPanel>
+
+  </DockPanel>
+</UserControl>

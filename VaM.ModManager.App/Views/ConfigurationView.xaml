@@ -1,0 +1,46 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="VaM.ModManager.App.Views.ConfigurationView">
+  
+  <DockPanel>
+    <TextBlock DockPanel.Dock="Top"  
+               Text="Configuration" 
+               FontSize="24" 
+               Height="40" />
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="Mod Location: " Width="100" FontWeight="Bold" />
+      <TextBox Width="400" VerticalAlignment="Top" Text="{Binding Config.ModLocation}"  />
+    </StackPanel>
+    
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="VaM Location: " Width="100" FontWeight="Bold" />
+      <TextBox Width="400" VerticalAlignment="Top" Text="{Binding Config.VamLocation}"  />
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,5">
+      <TextBlock Text="Author: " Width="100"  FontWeight="Bold" />
+      <TextBox Width="400" VerticalAlignment="Top" Text="{Binding Config.Author}"  />
+    </StackPanel>
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,15,0,5" >
+      <TextBlock Text="Replace VaM default.json with blank scene: "  FontWeight="Bold" />
+      <CheckBox Name="chkReplaceDefaultJson" IsChecked="{Binding Config.ReplaceDefaultJson}" />
+    </StackPanel>
+
+    <!--<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" IsVisible="{Binding #chkReplaceDefaultJson.IsChecked}" >
+      <TextBlock Text="Replacement Default: " />
+      <TextBlock Text="Blank Scene" />
+    </StackPanel>-->
+
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+      <Button Content="Back" Width="50" VerticalAlignment="Bottom" Margin="0,0,5,0" Command="{Binding $parent[Window].DataContext.LoadMainWindow}" />
+      <Button Content="Save" Width="50" VerticalAlignment="Bottom" Command="{Binding OnSave}" />
+    </StackPanel>
+
+  </DockPanel>
+ 
+</UserControl>

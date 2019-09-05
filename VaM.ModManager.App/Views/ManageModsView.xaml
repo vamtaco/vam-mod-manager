@@ -1,0 +1,124 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:VaM.ModManager.App.Models"
+             mc:Ignorable="d" d:DesignWidth="1280" d:DesignHeight="720"
+             x:Class="VaM.ModManager.App.Views.ManageModsView">
+
+  <Grid ColumnDefinitions="630,630" RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+    <TextBlock DockPanel.Dock="Top"
+               Grid.Row="0" Grid.Column="0"
+               Text="Manage Mods"
+               FontSize="24"
+               Height="40" />
+    
+    <TextBlock Grid.Row="1" Grid.Column="0" Text="Available Mods" />
+    <TextBlock Grid.Row="1" Grid.Column="1" Text="Installed Mods" />
+    
+    <ListBox Name="lstAvailableMods" Grid.Row="2" Grid.Column="0" Height="400" Margin="0,0,5,5" Items="{Binding AvailableMods}" SelectedItem="{Binding SelectedAvailableMod}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <ListBoxItem Content="{Binding DisplayName}" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <ListBox Name="lstInstalledMods" Grid.Row="2" Grid.Column="1" Height="400" Margin="0,0,5,5" Items="{Binding InstalledMods}" SelectedItem="{Binding SelectedInstalledMod}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <ListBoxItem Content="{Binding DisplayName}" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <Button Grid.Row="3" Grid.Column="0" Content="Install" Width="75" VerticalAlignment="Bottom" IsVisible="{Binding #lstAvailableMods.SelectedItems.Count}" Command="{Binding OnInstall}" CommandParameter="{Binding #lstAvailableMods.SelectedItem}" />
+
+    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="5">
+      <Button Content="Uninstall"  Width="100" VerticalAlignment="Bottom" IsVisible="{Binding #lstInstalledMods.SelectedItems.Count}" Command="{Binding OnUninstall}" CommandParameter="{Binding #lstInstalledMods.SelectedItem}" />
+      <Button Content="Dependencies" Width="100" VerticalAlignment="Bottom" IsVisible="{Binding #lstInstalledMods.SelectedItems.Count}" Command="{Binding $parent[Window].DataContext.OnManageVmmDependencies}" CommandParameter="{Binding #lstInstalledMods.SelectedItem}" />
+      <Button Content="Finalize Mod" Width="100" VerticalAlignment="Bottom" IsVisible="{Binding #lstInstalledMods.SelectedItems.Count}" Command="{Binding $parent[Window].DataContext.OnFinalizeMod}" CommandParameter="{Binding #lstInstalledMods.SelectedItem}" />
+      <!--<Button Content="Launch" Width="75" VerticalAlignment="Bottom" Command="{Binding OnLaunch}" CommandParameter="{Binding #lstInstalledMods.SelectedItem}" />-->
+    </StackPanel>
+
+    <StackPanel Grid.Row="4" Grid.Column="0" Orientation="Vertical" Spacing="5" IsVisible="{Binding #lstAvailableMods.SelectedItems.Count}" Margin="0,15,0,0">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Mod Name: " FontWeight="Bold"  />
+        <TextBlock Text="{Binding #lstAvailableMods.SelectedItem.ModName}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Author: " FontWeight="Bold"  />
+        <TextBlock Text="{Binding #lstAvailableMods.SelectedItem.Author}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Version: " FontWeight="Bold"  />
+        <TextBlock Text="{Binding #lstAvailableMods.SelectedItem.ModVersion}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Vertical" IsVisible="{Binding SelectedAvailableMod.Dependencies.Count}">
+        <TextBlock Text="Dependencies:" FontWeight="Bold" />
+        <ItemsControl Items="{Binding SelectedAvailableMod.Dependencies}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding DisplayName}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Vertical"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
+      </StackPanel>
+    </StackPanel>
+    
+    <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Vertical" Spacing="5" IsVisible="{Binding #lstInstalledMods.SelectedItems.Count}" Margin="0,15,0,0">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Mod Name: " FontWeight="Bold" />
+        <TextBlock Text="{Binding #lstInstalledMods.SelectedItem.ModName}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Author: " FontWeight="Bold" />
+        <TextBlock Text="{Binding #lstInstalledMods.SelectedItem.Author}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Version: " FontWeight="Bold" />
+        <TextBlock Text="{Binding #lstInstalledMods.SelectedItem.ModVersion}" />
+      </StackPanel>
+
+      <StackPanel Orientation="Vertical" IsVisible="{Binding SelectedInstalledMod.Dependencies.Count}">
+        <TextBlock Text="Dependencies:" FontWeight="Bold" />
+        <ItemsControl Items="{Binding SelectedInstalledMod.Dependencies}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding DisplayName}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <TextBlock Text="Dependencies" />
+              <StackPanel Orientation="Vertical"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+        </ItemsControl>
+      </StackPanel>
+      
+      <!--<StackPanel Orientation="Vertical">
+        <TextBlock Text="Dependencies" />
+        <ListBox Items="{Binding SelectedInstalledMod.Depenencies}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <ListBoxItem Content="{Binding DisplayName}" />
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </StackPanel>-->
+      
+    </StackPanel>
+  </Grid>
+
+</UserControl>
